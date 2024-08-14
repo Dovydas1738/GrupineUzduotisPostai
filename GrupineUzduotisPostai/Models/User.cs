@@ -17,5 +17,7 @@ namespace GrupineUzduotisPostai.Core.Models
         {
             UserName = userName;
         }
+
+        public User() { }  
     }
 }

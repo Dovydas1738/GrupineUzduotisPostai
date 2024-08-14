@@ -20,14 +20,18 @@ namespace GrupineUzduotisPostai.Core.Models
         public string Content { get; set; }
         public DateTime Date {  get; set; }
 
-        public Post(int id, string name, string content) 
-        { 
-            Id = id;
+        public Post(User user, string name, string content) 
+        {
+            User = user;
             Name = name;
             Content = content;
             Date = DateTime.Now;
         
         }
+
+
+
+        public Post() { }
 
 
     }
