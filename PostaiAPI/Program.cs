@@ -1,5 +1,6 @@
 using GrupineUzduotisPostai.Core.Contracts;
 using GrupineUzduotisPostai.Core.Repositories;
+using GrupineUzduotisPostai.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,12 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddTransient<IPostEfDbRepository, PostEfDbRepository>(_ => new PostEfDbRepository());
+builder.Services.AddTransient<IUserEfDbRepository, UserEfDbRepository>(_ => new UserEfDbRepository());
+builder.Services.AddTransient<IPostService, PostService>();
+builder.Services.AddTransient<IUserService, UserService>();
+
+
+
 
 var app = builder.Build();
 

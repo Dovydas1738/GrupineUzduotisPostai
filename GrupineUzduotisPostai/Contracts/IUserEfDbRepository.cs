@@ -8,5 +8,8 @@ namespace GrupineUzduotisPostai.Core.Contracts
 {
     public interface IUserEfDbRepository
     {
+
+
+
     }
 }
