@@ -6,13 +6,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to our Post Service! </h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2 class="display-4">Welcome to our Post Service! </h2>
+    <p>We hope that ypu will enjoy our services.</p>
 </div>
 
 
 
-
+<h4 class="text-center">Posts:</h4>
+<br>
 
 <table class="my-table">
     <colgroup>
@@ -21,6 +22,7 @@
     <tr class="my-table-row-headings">
         <th class="my-table-column">ID</th>
         <th>User</th>
+        <th>Name</th>
         <th>Content</th>
         <th>Date</th>
     </tr>
@@ -29,8 +31,70 @@
         <tr class="my-table-row">
             <td class="my-table-column">@po.Id</td>
             <td>@po.User</td>
+            <td>@po.Name</td>
             <td>@po.Content</td>
             <td>@po.Date.ToString("yyyy-MM-dd") </td>
         </tr>
     }
 </table>
+
+<br>
+<br>
+
+<h4 class="text-center">Create new POST:</h4>
+<br>
+<form id="postCreateForm" class="text-center">
+
+    <label for="userName">Enter Your Name:</label><br>
+    <input type="text" id="userName" name="userName" required><br><br>
+
+    <label for="name">Enter a name for your post:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+    
+    <label for="content">Enter content for your post:</label><br>
+    <input type="text" id="content" name="content" required><br><br>
+
+    <button type="submit" id="submit-button">Submit</button>
+</form>
+
+
+<script>
+    function sendFormDataAdd(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('submit-button');
+        submitButton.innerText = 'Post is being created';
+        submitButton.style.background = '#3CD5EF';
+        fetch(endpoint, {
+            method: 'POST',
+            body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Post has been added');
+                window.location.href = '/Index'
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    document.getElementById('postCreateForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7075/Posts/AddPost';
+        const formData = new FormData(this);
+        sendFormDataAdd(endpoint, formData);
+    });
+</script>
+
+<br>
+<br>

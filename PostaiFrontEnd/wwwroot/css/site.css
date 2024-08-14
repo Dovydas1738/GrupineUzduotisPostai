@@ -20,3 +20,26 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.my-table {
+    width: 70%;
+    border: 3px solid;
+    border-color: black;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: khaki;
+}
+
+.my-table-row-headings {
+    font-size: 18px;
+    color: black;
+}
+
+.my-table-row {
+    border: 1px solid;
+}
+
+.my-table-column {
+    border: 1px solid;
+    font-weight: bold;
+}
