@@ -42,7 +42,7 @@ namespace PostaiAPI.Controllers
 
         }
 
-        [HttpPost("GetUserById")]
+        [HttpGet("GetUserById")]
         public async Task<IActionResult> GetUserById(int userId)
         {
             try
@@ -61,7 +61,7 @@ namespace PostaiAPI.Controllers
         }
 
 
-        [HttpPost("UpdateUser")]
+        [HttpPatch("UpdateUser")]
         public async Task<IActionResult> UpdateUser(User user)
         {
             try

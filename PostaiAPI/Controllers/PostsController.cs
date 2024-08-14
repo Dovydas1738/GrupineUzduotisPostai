@@ -47,7 +47,7 @@ namespace PostaiAPI.Controllers
         }
 
 
-        [HttpPost("UpdatePost")]
+        [HttpPatch("UpdatePost")]
         public async Task<IActionResult> UpdatePost(Post post)
         {
             try
@@ -63,7 +63,7 @@ namespace PostaiAPI.Controllers
 
         }
 
-        [HttpPost("GetPostByName")]
+        [HttpGet("GetPostByName")]
         public async Task<IActionResult> GetPostByName(string postName)
         {
             try
