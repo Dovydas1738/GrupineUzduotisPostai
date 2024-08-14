@@ -20,6 +20,10 @@ namespace GrupineUzduotisPostai.Core.Models
         public string Content { get; set; }
         public DateTime Date {  get; set; }
 
+        public void SetDate()
+        {
+            Date = DateTime.Now;
+        }
         public Post(User user, string name, string content) 
         {
             User = user;
@@ -31,7 +35,9 @@ namespace GrupineUzduotisPostai.Core.Models
 
 
 
-        public Post() { }
+        public Post() {
+            
+        }
 
 
     }

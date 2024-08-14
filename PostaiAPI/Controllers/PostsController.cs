@@ -32,11 +32,13 @@ namespace PostaiAPI.Controllers
 
 
         [HttpPost("AddPost")]
-        public async Task<IActionResult> AddPost(Post post)
+        public async Task<IActionResult> AddPost(PostCreateRequest post)
         {
+            Post post1 = new Post {Id = post.Id, User = new User(post.UserName) ,Name = post.Name, Content = post.Content, Date = post.Date};
             try
             {
-                await _postService.AddPost(post);
+                post1.SetDate();
+                await _postService.AddPost(post1);
                 return Ok();
             }
             catch
