@@ -8,13 +8,13 @@ using GrupineUzduotisPostai.Core.Models;
 
 namespace GrupineUzduotisPostai.Core.Repositories
 {
-    public class PostDbContext
+    public class PostDbContext : DbContext
     {
         public DbSet<Post> Posts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("")
+            optionsBuilder.UseSqlServer("Server=localhost;Database=PostsDb;Trusted_Connection=True;TrustServerCertificate=true;");
         }
     }
 }
