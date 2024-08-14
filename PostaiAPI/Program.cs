@@ -17,10 +17,22 @@ builder.Services.AddTransient<IUserEfDbRepository, UserEfDbRepository>(_ => new 
 builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<IUserService, UserService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7075")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 
 
 var app = builder.Build();
+
+app.UseCors("AllowSpecificOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,5 +1,6 @@
 ﻿@page
 @using GrupineUzduotisPostai.Core.Models
+@using GrupineUzduotisPostai.Core.Services
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -21,7 +22,8 @@
     </colgroup>
     <tr class="my-table-row-headings">
         <th class="my-table-column">ID</th>
-        <th>User</th>
+        <th>UserID</th>
+        <th>User name</th>
         <th>Name</th>
         <th>Content</th>
         <th>Date</th>
@@ -30,7 +32,8 @@
     {
         <tr class="my-table-row">
             <td class="my-table-column">@po.Id</td>
-            <td>@po.User</td>
+            <td>@po.User.UserId</td>
+            <td>@po.User.UserName</td>
             <td>@po.Name</td>
             <td>@po.Content</td>
             <td>@po.Date.ToString("yyyy-MM-dd") </td>
