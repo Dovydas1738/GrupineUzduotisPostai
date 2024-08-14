@@ -28,6 +28,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     background-color: khaki;
+
 }
 
 .my-table-row-headings {
@@ -37,9 +38,17 @@ body {
 
 .my-table-row {
     border: 1px solid;
+
 }
 
 .my-table-column {
     border: 1px solid;
     font-weight: bold;
+
+}
+
+.my-content-limit {
+    max-width:150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
