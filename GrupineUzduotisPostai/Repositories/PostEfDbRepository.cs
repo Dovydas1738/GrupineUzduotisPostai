@@ -17,6 +17,12 @@ namespace GrupineUzduotisPostai.Core.Repositories
             using (var context = new PostDbContext())
             {
                 List<Post> AllPosts = await context.Posts.ToListAsync();
+
+                foreach (Post p in AllPosts)
+                {
+                    context.Entry(p).Reference(x => x.User).Load();
+                    Console.WriteLine($"{p.User.UserId} {p.User.UserName} {p.Name} {p.Content} {p.Date}");
+                }
                 return AllPosts;
             }
         }
@@ -43,8 +49,18 @@ namespace GrupineUzduotisPostai.Core.Repositories
         {
             using (var context = new PostDbContext())
             {
-                Post foundPost = await context.Posts.FindAsync(postName);
-                return foundPost;
+                List<Post> AllPosts = await context.Posts.ToListAsync();
+
+                foreach (Post p in AllPosts)
+                {
+                    if(p.Name == postName)
+                    {
+                        context.Entry(p).Reference(x => x.User).Load();
+                        Console.WriteLine($"{p.User.UserId} {p.User.UserName} {p.Name} {p.Content} {p.Date}");
+                        return p;
+                    }
+                }
+                return null;
             }
 
         }

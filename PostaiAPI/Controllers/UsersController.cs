@@ -47,8 +47,8 @@ namespace PostaiAPI.Controllers
         {
             try
             {
-                await _userService.GetUserById(userId);
-                return Ok();
+                var foundUser = await _userService.GetUserById(userId);
+                return Ok(foundUser);
 
             }
             catch

@@ -68,8 +68,8 @@ namespace PostaiAPI.Controllers
         {
             try
             {
-                await _postService.GetPostByName(postName);
-                return Ok();
+                var foundPost = await _postService.GetPostByName(postName);
+                return Ok(foundPost);
 
             }
             catch
