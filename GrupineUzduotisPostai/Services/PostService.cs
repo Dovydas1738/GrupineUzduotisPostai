@@ -1,5 +1,6 @@
 ﻿using GrupineUzduotisPostai.Core.Contracts;
 using GrupineUzduotisPostai.Core.Models;
+using GrupineUzduotisPostai.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,36 @@ namespace GrupineUzduotisPostai.Core.Services
 {
     public class PostService : IPostService
     {
-        public Task AddPost(Post post)
+        private readonly IPostEfDbRepository _postRepository;
+
+        public PostService(IPostEfDbRepository postRepository)
         {
-            throw new NotImplementedException();
+            _postRepository = postRepository;
         }
 
-        public Task DeletePostById(int id)
+        public async Task AddPost(Post post)
         {
-            throw new NotImplementedException();
+            await _postRepository.AddPost(post);
         }
 
-        public Task<List<Post>> GetAllPosts()
+        public async Task DeletePostById(int id)
         {
-            throw new NotImplementedException();
+            await _postRepository.DeletePostById(id);
         }
 
-        public Task<Post> GetPostByName(string postName)
+        public async Task<List<Post>> GetAllPosts()
         {
-            throw new NotImplementedException();
+            return await _postRepository.GetAllPosts();
         }
 
-        public Task UpdatePost(Post post)
+        public async Task<Post> GetPostByName(string postName)
         {
-            throw new NotImplementedException();
+            return await _postRepository.GetPostByName(postName);
+        }
+
+        public async Task UpdatePost(Post post)
+        {
+            await _postRepository.UpdatePost(post);
         }
     }
 }

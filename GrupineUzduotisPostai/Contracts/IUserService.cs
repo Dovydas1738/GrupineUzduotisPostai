@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace GrupineUzduotisPostai.Core.Contracts
 {
-    public interface IUserEfDbRepository
+    public interface IUserService
     {
         Task<List<User>> GetAllUsers();
         Task AddUser(User user);
         Task UpdateUser(User user);
         Task<User> GetUserById(int id);
         Task DeleteUserById(int id);
+
     }
 }
