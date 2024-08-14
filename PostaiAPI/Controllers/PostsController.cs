@@ -26,7 +26,7 @@ namespace PostaiAPI.Controllers
         [HttpGet("GetAllPosts")]
         public async Task<IActionResult> Index()
         {
-            var allPosts = await _postEfDbRepository.GetAllPosts();
+            var allPosts = await _postService.GetAllPosts();
             return Ok(allPosts);
         }
 
@@ -36,7 +36,7 @@ namespace PostaiAPI.Controllers
         {
             try
             {
-                await _postEfDbRepository.AddPost(post);
+                await _postService.AddPost(post);
                 return Ok();
             }
             catch
@@ -52,7 +52,7 @@ namespace PostaiAPI.Controllers
         {
             try
             {
-                await _postEfDbRepository.UpdatePost(post);
+                await _postService.UpdatePost(post);
                 return Ok(post);
 
             }
@@ -68,7 +68,7 @@ namespace PostaiAPI.Controllers
         {
             try
             {
-                await _postEfDbRepository.GetPostByName(postName);
+                await _postService.GetPostByName(postName);
                 return Ok();
 
             }
@@ -85,7 +85,7 @@ namespace PostaiAPI.Controllers
         [HttpDelete("DeletePost")]
         public async Task<IActionResult> DeletePostById(int id)
         {
-            await _postEfDbRepository.DeletePostById(id);
+            await _postService.DeletePostById(id);
             return Ok();
         }
 
