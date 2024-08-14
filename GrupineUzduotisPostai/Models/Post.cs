@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace GrupineUzduotisPostai.Core.Models
 {
-    public class Posts
+    public class Post
     {
         public int Id {  get; set; }
         public string Name { get; set; }
         public string Content { get; set; }
         public DateOnly Date {  get; set; }
 
-        public Posts(int id, string name, string content, DateOnly date ) 
+        public Post(int id, string name, string content, DateOnly date ) 
         { 
             Id = id;
             Name = name;
