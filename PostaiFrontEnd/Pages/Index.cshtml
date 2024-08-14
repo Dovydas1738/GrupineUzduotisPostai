@@ -1,10 +1,36 @@
 ﻿@page
+@using GrupineUzduotisPostai.Core.Models
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome to our Post Service! </h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+
+
+
+<table class="my-table">
+    <colgroup>
+        <col span="1" style="background-color: #a2baee">
+    </colgroup>
+    <tr class="my-table-row-headings">
+        <th class="my-table-column">ID</th>
+        <th>User</th>
+        <th>Content</th>
+        <th>Date</th>
+    </tr>
+    @foreach (Post po in Model.Posts)
+    {
+        <tr class="my-table-row">
+            <td class="my-table-column">@po.Id</td>
+            <td>@po.User</td>
+            <td>@po.Content</td>
+            <td>@po.Date.ToString("yyyy-MM-dd") </td>
+        </tr>
+    }
+</table>
