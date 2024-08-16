@@ -84,7 +84,10 @@
             deleteButton.textContent = 'Delete';
             deleteButton.style.marginTop = '10px';
             deleteButton.addEventListener('click', function () {
-                deletePost(post.id);
+                event.preventDefault();
+                const endpoint = 'https://localhost:7075/Posts/DeletePost';
+                sendFormDataDelete(endpoint, formData);
+
             });
 
             postElement.appendChild(postTitle);
@@ -98,7 +101,7 @@
     function sendDataDelete(endpoint, formData) {
         const plainFormData = Object.fromEntries(formData.entries());
         const jsonString = JSON.stringify(plainFormData);
-        var submitButton = document.getElementById('postContainer');
+        var submitButton = document.getElementById('button');
         submitButton.innerText = 'Post is being deleted';
         submitButton.style.background = '#3CD5EF';
         endpoint += '/' + document.getElementById('post.id').value;
