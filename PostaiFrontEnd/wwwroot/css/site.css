@@ -52,3 +52,10 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.my-post-limit {
+    max-width: 300px;
+    overflow-y: auto;
+    white-space: initial;
+    word-wrap: break-word;
+}
