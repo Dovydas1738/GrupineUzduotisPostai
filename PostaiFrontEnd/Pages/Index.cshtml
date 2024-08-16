@@ -34,7 +34,9 @@
             <td class="my-table-column">@po.Id</td>
             <td>@po.User.UserId</td>
             <td>@po.User.UserName</td>
-            <td>@po.Name</td>
+            <td>
+                <a href="#" class="post-title" data-name="@po.Name">@po.Name</a>
+            </td>
             <td class="my-content-limit">@po.Content</td>
             <td>@po.Date </td>
         </tr>
@@ -101,3 +103,34 @@
 
 <br>
 <br>
+
+
+<div id="postDetails" style="display: none; padding: 15px; border: 1px solid #ddd;">
+    <h4 id="postTitle"></h4>
+    <p id="postContent"></p>
+    <p id="postDate"></p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.post-title').forEach(function (element) {
+            element.addEventListener('click', function (e) {
+                e.preventDefault();
+                var postName = this.getAttribute('data-name');
+                fetchPostDetails(postName);
+            });
+        });
+    });
+
+    function fetchPostDetails(postName) {
+        fetch(`/Posts/GetPostByName?postName=${encodeURIComponent(postName)}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('postTitle').textContent = data.name;
+                document.getElementById('postContent').textContent = data.content;
+                document.getElementById('postDate').textContent = `Posted by ${data.userName} on ${new Date(data.date).toLocaleDateString()}`;
+                document.getElementById('postDetails').style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching post details:', error));
+    }
+</script>

@@ -71,14 +71,23 @@ namespace PostaiAPI.Controllers
             try
             {
                 var foundPost = await _postService.GetPostByName(postName);
-                return Ok(foundPost);
+                if (foundPost == null)
+                {
+                    return NotFound(new { Message = "Post not found" });
+                }
 
+                return Ok(new
+                {
+                    id = foundPost.Id,
+                    name = foundPost.Name,
+                    content = foundPost.Content,
+                    userName = foundPost.User.UserName,
+                    date = foundPost.Date
+                });
             }
             catch
             {
-
-                return Problem();
-
+                return StatusCode(500, "Internal server error");
             }
 
         }
@@ -90,6 +99,8 @@ namespace PostaiAPI.Controllers
             await _postService.DeletePostById(id);
             return Ok();
         }
+
+
 
 
 
