@@ -12,8 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddTransient<IPostEfDbRepository, PostEfDbRepository>(_ => new PostEfDbRepository());
 builder.Services.AddTransient<IUserEfDbRepository, UserEfDbRepository>(_ => new UserEfDbRepository());
+builder.Services.AddTransient<IPostEfDbRepository, PostEfDbRepository>(_ => new PostEfDbRepository());
 builder.Services.AddTransient<IPostService, PostService>();
 builder.Services.AddTransient<IUserService, UserService>();
 

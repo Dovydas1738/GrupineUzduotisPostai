@@ -13,6 +13,7 @@ namespace GrupineUzduotisPostai.Core.Repositories
 {
     public class PostEfDbRepository : IPostEfDbRepository
     {
+
         public async Task<List<Post>> GetAllPosts()
         {
             using (var context = new PostDbContext())
@@ -32,6 +33,7 @@ namespace GrupineUzduotisPostai.Core.Repositories
         {
             using (var context = new PostDbContext())
             {
+
                 await context.Posts.AddAsync(post);
                 await context.SaveChangesAsync();
             }

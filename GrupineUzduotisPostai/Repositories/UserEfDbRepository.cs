@@ -38,11 +38,11 @@ namespace GrupineUzduotisPostai.Core.Repositories
             }
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<User> GetUserByUserName(string userName)
         {
             using (var context = new PostDbContext())
             {
-                User foundUser = await context.Users.FindAsync(id);
+                User foundUser = await context.Users.FindAsync(userName);
                 return foundUser;
             }
 

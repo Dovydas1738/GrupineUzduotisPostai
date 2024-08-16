@@ -12,7 +12,7 @@ namespace GrupineUzduotisPostai.Core.Contracts
         Task<List<User>> GetAllUsers();
         Task AddUser(User user);
         Task UpdateUser(User user);
-        Task<User> GetUserById(int id);
+        Task<User> GetUserByUserName(string userName);
         Task DeleteUserById(int id);
 
     }

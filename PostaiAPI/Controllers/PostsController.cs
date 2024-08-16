@@ -14,12 +14,14 @@ namespace PostaiAPI.Controllers
     {
         private readonly IPostEfDbRepository _postEfDbRepository;
         private readonly IPostService _postService;
+        private readonly IUserService _userService;
 
 
-        public PostsController(IPostEfDbRepository postEfDbRepository, IPostService postService)
+        public PostsController(IPostEfDbRepository postEfDbRepository, IPostService postService, IUserService userService)
         {
             _postEfDbRepository = postEfDbRepository;
             _postService = postService;
+            _userService = userService;
         }
 
 
@@ -34,12 +36,33 @@ namespace PostaiAPI.Controllers
         [HttpPost("AddPost")]
         public async Task<IActionResult> AddPost(PostCreateRequest post)
         {
-            Post post1 = new Post {Id = post.Id, User = new User(post.UserName) ,Name = post.Name, Content = post.Content, Date = post.Date};
             try
             {
+                //List<Post> postCheck = await _postEfDbRepository.GetPostsByUserName(post.UserName);
+                //if (postCheck.Count > 0)
+                //{
+                //    User foundUser = await _userService.GetUserByUserName(post.UserName);
+                //    foundUser = foundUser;
+                //    Post post1 = new Post { Id = post.Id, User = foundUser, Name = post.Name, Content = post.Content, Date = post.Date };
+                //    post1.SetDate();
+                //    await _postService.AddPost(post1);
+                //    return Ok();
+                //}
+                //else
+                //{
+                //    Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date };
+                //    post1.SetDate();
+                //    await _postService.AddPost(post1);
+                //    return Ok();
+                //}
+                
+                Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date };
                 post1.SetDate();
                 await _postService.AddPost(post1);
                 return Ok();
+
+
+
             }
             catch
             {

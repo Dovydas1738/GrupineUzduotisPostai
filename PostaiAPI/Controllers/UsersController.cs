@@ -42,23 +42,23 @@ namespace PostaiAPI.Controllers
 
         }
 
-        [HttpGet("GetUserById")]
-        public async Task<IActionResult> GetUserById(int userId)
-        {
-            try
-            {
-                var foundUser = await _userService.GetUserById(userId);
-                return Ok(foundUser);
+        //[HttpGet("GetUserById")]
+        //public async Task<IActionResult> GetUserById(int userId)
+        //{
+        //    try
+        //    {
+        //        var foundUser = await _userService.GetUserById(userId);
+        //        return Ok(foundUser);
 
-            }
-            catch
-            {
+        //    }
+        //    catch
+        //    {
 
-                return Problem();
+        //        return Problem();
 
-            }
+        //    }
 
-        }
+        //}
 
 
         [HttpPatch("UpdateUser")]
