@@ -93,7 +93,7 @@ namespace PostaiAPI.Controllers
         }
 
 
-        [HttpDelete("DeletePost")]
+        [HttpDelete("DeletePost/{id}")]
         public async Task<IActionResult> DeletePostById(int id)
         {
             await _postService.DeletePostById(id);
