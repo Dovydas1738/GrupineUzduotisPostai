@@ -134,3 +134,55 @@
             .catch(error => console.error('Error fetching post details:', error));
     }
 </script>
+
+
+<h4 class="text-center">Delete unwanted POST:</h4>
+<br>
+<br>
+<form id="postDeleteForm" class="text-center">
+
+    <label for="postId">Enter Post ID:</label><br>
+    <input type="number" id="deleteId" name="postId" required><br><br>
+
+    <button type="submit" id="submit-button-delete">Submit</button>
+</form>
+
+
+<script>
+    function sendFormDataDelete(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('submit-button-delete');
+        submitButton.innerText = 'Post is being deleted';
+        submitButton.style.background = '#3CD5EF';
+        endpoint += '/' + document.getElementById('deleteId').value;
+        fetch(endpoint, {
+            method: 'DELETE',
+            body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Post is deleted');
+                window.location.href = '/Index'
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    document.getElementById('postDeleteForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7075/Posts/DeletePost';
+        const formData = new FormData(this);
+        sendFormDataDelete(endpoint, formData);
+    });
+</script>

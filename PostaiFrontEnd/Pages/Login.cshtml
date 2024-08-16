@@ -12,28 +12,99 @@
     <p>Enter your user name to see your posts.</p>
 </div>
 
+
 <br>
 <br>
 <br>
 
 <form id="loginForm" class="text-center">
-
     <label for="userName">Enter Your User Name:</label><br>
     <input type="text" id="userName" name="userName" required><br><br>
-
     <button type="submit" id="submit-button">Login</button>
 </form>
 
+<div id="postContainer" style="margin-top: 20px;"></div>
+
+
 <script>
-    function sendFormDataAdd(endpoint, formData) {
-        const plainFormData = Object.fromEntries(formData.entries());
-        const jsonString = JSON.stringify(plainFormData);
-        var submitButton = document.getElementById('submit-button');
-        submitButton.innerText = 'Searching...';
-        submitButton.style.background = '#3CD5EF';
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const userName = document.getElementById('userName').value;
+        if (userName.trim() === '') {
+            alert('Please enter a username.');
+            return;
+        }
+        const endpoint = `https://localhost:7075/Posts/GetPostsByUserName?userName=${encodeURIComponent(userName)}`;
         fetch(endpoint, {
             method: 'GET',
-            //body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(posts => {
+                displayPosts(posts);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                alert('Error fetching posts: ' + error.message);
+            });
+    });
+
+    function displayPosts(posts) {
+        const postContainer = document.getElementById('postContainer');
+        postContainer.innerHTML = '';
+        if (posts.length === 0) {
+            postContainer.innerHTML = '<p>No posts found for the specified user.</p>';
+            return;
+        }
+        posts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.classList.add('post');
+            postElement.style.border = '1px solid #ddd';
+            postElement.style.padding = '10px';
+            postElement.style.margin = '10px 0';
+
+            const postTitle = document.createElement('h4');
+            postTitle.textContent = post.name;
+
+            const postContent = document.createElement('p');
+            postContent.textContent = post.content;
+
+            const postDate = document.createElement('p');
+            postDate.textContent = `Posted by ${post.user.userName} on ${new Date(post.date).toLocaleDateString()}`;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.style.marginTop = '10px';
+            deleteButton.addEventListener('click', function () {
+                deletePost(post.id);
+            });
+
+            postElement.appendChild(postTitle);
+            postElement.appendChild(postContent);
+            postElement.appendChild(postDate);
+            postElement.appendChild(deleteButton);
+            postContainer.appendChild(postElement);
+        });
+    }
+
+    function sendDataDelete(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('postContainer');
+        submitButton.innerText = 'Post is being deleted';
+        submitButton.style.background = '#3CD5EF';
+        endpoint += '/' + document.getElementById('post.id').value;
+        fetch(endpoint, {
+            method: 'DELETE',
+            body: jsonString,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -43,7 +114,7 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
-                alert('Post has been added');
+                alert('Post is deleted');
                 window.location.href = '/Login'
             })
             .then(data => {
@@ -54,11 +125,11 @@
             });
     }
 
-    document.getElementById('loginForm').addEventListener('submit', function (event) {
+    document.getElementById('postContainer').addEventListener('submit', function (event) {
         event.preventDefault();
-        const endpoint = 'https://localhost:7075/Posts/GetPostsByUserName';
+        const endpoint = 'https://localhost:7075/Posts/DeletePost';
         const formData = new FormData(this);
-        sendFormDataAdd(endpoint, formData);
+        sendFormDataDelete(endpoint, formData);
     });
+    
 </script>
-
