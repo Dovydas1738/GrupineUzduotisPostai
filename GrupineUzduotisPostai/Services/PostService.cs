@@ -38,6 +38,11 @@ namespace GrupineUzduotisPostai.Core.Services
             return await _postRepository.GetPostByName(postName);
         }
 
+        public async Task<List<Post>> GetPostsByUserName(string userName)
+        {
+            return await _postRepository.GetPostsByUserName(userName);
+        }
+
         public async Task UpdatePost(Post post)
         {
             await _postRepository.UpdatePost(post);

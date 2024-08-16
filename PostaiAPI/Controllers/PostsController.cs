@@ -101,7 +101,21 @@ namespace PostaiAPI.Controllers
         }
 
 
+        [HttpGet("GetPostsByUserName")]
+        public async Task<IActionResult> GetPostsByUserName(string userName)
+        {
+            try
+            {
+                var foundPosts = await _postService.GetPostsByUserName(userName);
+                return Ok(foundPosts);
 
+            }
+            catch
+            {
+                return Problem();
+            }
+
+        }
 
 
 

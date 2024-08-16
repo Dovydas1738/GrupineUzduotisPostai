@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using GrupineUzduotisPostai.Core.Models;
 using GrupineUzduotisPostai.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 namespace GrupineUzduotisPostai.Core.Repositories
 {
@@ -73,6 +74,28 @@ namespace GrupineUzduotisPostai.Core.Repositories
                 await context.SaveChangesAsync();
             }
 
+        }
+
+        public async Task<List<Post>> GetPostsByUserName(string userName)
+        {
+            using (var context = new PostDbContext())
+            {
+                List<Post> AllPosts = await context.Posts.ToListAsync();
+                List<Post> foundPosts = new List<Post>();
+
+
+                foreach(Post post in AllPosts)
+                {
+                    context.Entry(post).Reference(x => x.User).Load();
+                    if (post.User.UserName == userName)
+                    {
+                        Console.WriteLine($"{post.User.UserId} {post.User.UserName} {post.Name} {post.Content} {post.Date}");
+
+                        foundPosts.Add(post);
+                    }
+                }
+                return foundPosts;
+            }
         }
     }
 }

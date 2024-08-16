@@ -1,0 +1,63 @@
+﻿@page
+@using GrupineUzduotisPostai.Core.Models
+@using GrupineUzduotisPostai.Core.Services
+@model PostaiFrontEnd.Pages.LoginModel
+@{
+	ViewData["Title"] = "Login";
+}
+
+
+<div class="text-center">
+    <h2 class="display-4">Login</h2>
+    <p>Enter your user name to see your posts.</p>
+</div>
+
+<br>
+<br>
+<br>
+
+<form id="loginForm" class="text-center">
+
+    <label for="userName">Enter Your User Name:</label><br>
+    <input type="text" id="userName" name="userName" required><br><br>
+
+    <button type="submit" id="submit-button">Login</button>
+</form>
+
+<script>
+    function sendFormDataAdd(endpoint, formData) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('submit-button');
+        submitButton.innerText = 'Searching...';
+        submitButton.style.background = '#3CD5EF';
+        fetch(endpoint, {
+            method: 'GET',
+            //body: jsonString,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Post has been added');
+                window.location.href = '/Login'
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7075/Posts/GetPostsByUserName';
+        const formData = new FormData(this);
+        sendFormDataAdd(endpoint, formData);
+    });
+</script>

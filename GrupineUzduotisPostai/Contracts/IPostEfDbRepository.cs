@@ -14,5 +14,6 @@ namespace GrupineUzduotisPostai.Core.Contracts
         Task UpdatePost(Post post);
         Task<Post> GetPostByName(string postName);
         Task DeletePostById(int id);
+        Task<List<Post>> GetPostsByUserName(string userName);
     }
 }
