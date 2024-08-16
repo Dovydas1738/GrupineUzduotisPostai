@@ -123,7 +123,7 @@
     });
 
     function fetchPostDetails(postName) {
-        fetch(`/Posts/GetPostByName?postName=${encodeURIComponent(postName)}`)
+        fetch(`https://localhost:7075/Posts/GetPostByName?postName=${encodeURIComponent(postName)}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('postTitle').textContent = data.name;
