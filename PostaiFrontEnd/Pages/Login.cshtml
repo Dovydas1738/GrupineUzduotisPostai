@@ -84,10 +84,9 @@
             deleteButton.textContent = 'Delete';
             deleteButton.style.marginTop = '10px';
             deleteButton.addEventListener('click', function () {
-                event.preventDefault();
-                const endpoint = 'https://localhost:7075/Posts/DeletePost';
-                sendFormDataDelete(endpoint, formData);
-
+                deletePost(post.id);
+                deleteButton.innerText = 'Post is being deleted';
+                deleteButton.style.background = '#3CD5EF';
             });
 
             postElement.appendChild(postTitle);
@@ -98,41 +97,33 @@
         });
     }
 
-    function sendDataDelete(endpoint, formData) {
-        const plainFormData = Object.fromEntries(formData.entries());
-        const jsonString = JSON.stringify(plainFormData);
-        var submitButton = document.getElementById('button');
-        submitButton.innerText = 'Post is being deleted';
-        submitButton.style.background = '#3CD5EF';
-        endpoint += '/' + document.getElementById('post.id').value;
+    function deletePost(postId) {
+        const endpoint = `https://localhost:7075/Posts/DeletePost/${postId}`;
+
         fetch(endpoint, {
             method: 'DELETE',
-            body: jsonString,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            },
+            }
         })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
-                alert('Post is deleted');
+                alert('Post has been deleted');
                 window.location.href = '/Login'
+                return response.json();
+                
             })
             .then(data => {
                 console.log('Success:', data);
+                alert('Post has been deleted');
+                window.location.reload(); 
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
             });
     }
-
-    document.getElementById('postContainer').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const endpoint = 'https://localhost:7075/Posts/DeletePost';
-        const formData = new FormData(this);
-        sendFormDataDelete(endpoint, formData);
-    });
     
 </script>
