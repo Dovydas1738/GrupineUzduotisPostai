@@ -27,6 +27,7 @@
         <th>Name</th>
         <th>Content</th>
         <th>Date</th>
+        <th>Post Category</th>
     </tr>
     @foreach (Post po in Model.Posts)
     {
@@ -39,6 +40,7 @@
             </td>
             <td class="my-content-limit">@po.Content</td>
             <td>@po.Date </td>
+            <th>@po.Category</th>
         </tr>
     }
 </table>
@@ -63,6 +65,16 @@
     <label for="answer">Enter answer:</label><br>
     <input type="number" id="captchaInput" name="answer" required><br><br>
 
+
+    <label for="category">Select a category:</label><br>
+    <select id="category" name="category">
+        <option value="1">OffTopic</option>
+        <option value="2">Complaint</option>
+        <option value="3">Advert</option>
+        <option value="4">News</option>
+    </select><br><br>
+
+
     <button type="submit" id="submit-button">Submit</button>
 </form>
 
@@ -76,7 +88,9 @@
             return;
         }
 
+        
         const plainFormData = Object.fromEntries(formData.entries());
+        plainFormData.category = parseInt(plainFormData.category);
         const jsonString = JSON.stringify(plainFormData);
         checkCaptcha();
         var submitButton = document.getElementById('submit-button');
@@ -143,6 +157,7 @@
             .then(data => {
                 document.getElementById('postTitle').textContent = data.name;
                 document.getElementById('postContent').textContent = data.content;
+                document.getElementById('postCategory').textContent = data.category;
                 document.getElementById('postDate').textContent = `Posted by ${data.userName} on ${new Date(data.date).toLocaleDateString()}`;
                 document.getElementById('postDetails').style.display = 'block';
             })

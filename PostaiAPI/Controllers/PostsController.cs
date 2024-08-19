@@ -13,15 +13,17 @@ namespace PostaiAPI.Controllers
     public class PostsController : Controller
     {
         private readonly IPostEfDbRepository _postEfDbRepository;
+        private readonly IUserEfDbRepository _userEfDbRepository;
         private readonly IPostService _postService;
         private readonly IUserService _userService;
 
 
-        public PostsController(IPostEfDbRepository postEfDbRepository, IPostService postService, IUserService userService)
+        public PostsController(IPostEfDbRepository postEfDbRepository, IPostService postService, IUserService userService, IUserEfDbRepository userEfDbRepository)
         {
             _postEfDbRepository = postEfDbRepository;
             _postService = postService;
             _userService = userService;
+            _userEfDbRepository = userEfDbRepository;
         }
 
 
@@ -38,6 +40,7 @@ namespace PostaiAPI.Controllers
         {
             try
             {
+
                 //List<Post> postCheck = await _postEfDbRepository.GetPostsByUserName(post.UserName);
                 //if (postCheck.Count > 0)
                 //{
@@ -55,8 +58,8 @@ namespace PostaiAPI.Controllers
                 //    await _postService.AddPost(post1);
                 //    return Ok();
                 //}
-                
-                Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date };
+
+                Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date, Category = post.Category };
                 post1.SetDate();
                 await _postService.AddPost(post1);
                 return Ok();
@@ -77,6 +80,7 @@ namespace PostaiAPI.Controllers
         {
             try
             {
+
                 User foundUser = await _userService.GetUserByUserName(post.UserName);
 
                 Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date };
