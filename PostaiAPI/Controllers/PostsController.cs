@@ -73,7 +73,7 @@ namespace PostaiAPI.Controllers
 
 
         [HttpPatch("UpdatePost")]
-        public async Task<IActionResult> UpdatePost(Post post)
+        public async Task<IActionResult> UpdatePost(PostCreateRequest post)
         {
             try
             {

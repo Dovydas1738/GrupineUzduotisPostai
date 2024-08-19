@@ -69,6 +69,11 @@
             });
     });
 
+    let currentPostId = null;
+    let currentUserId = null;
+    let currentUserName = null;
+    let currentDate = null;
+
     function displayPosts(posts) {
         const postContainer = document.getElementById('postContainer');
         postContainer.innerHTML = '';
@@ -106,6 +111,13 @@
             updateButton.style.marginTop = '10px';
             updateButton.style.margin = '10px';
             updateButton.addEventListener('click', function () {
+                document.getElementById('updateForm').style.display = 'block';
+                currentPostId = post.id;
+                currentUserId = post.user.userId;
+                currentUserName = post.user.userName;
+                currentDate = post.date;
+                document.getElementById('name').value = post.name;
+                document.getElementById('content').value = post.content;
                 document.getElementById('updateForm').style.display = 'block';
                 //pakeist i formos data
                 //updateButton(post.id);
@@ -153,47 +165,90 @@
             });
     }
 
-    function updatePost(endpoint, formData) {
-        const userName = document.getElementById('userName').value;
-        const plainFormData = userName + Object.fromEntries(formData.entries());
-        const jsonString = JSON.stringify(plainFormData);
-        var submitButton = document.getElementById('update-button');
-        submitButton.innerText = 'Post is being updated';
-        submitButton.style.background = '#3CD5EF';
+   
+    document.getElementById('updateForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (currentPostId === null) {
+            alert('No post selected for update.');
+            return;
+        }
 
-        //hell yeah
+        const updatedPost = {
+            id: currentPostId,
+            userId: currentUserId,
+            userName: currentUserName,
+            name: document.getElementById('name').value,
+            content: document.getElementById('content').value,
+            date: currentDate
+
+
+        };
+
+        const endpoint = `https://localhost:7075/Posts/UpdatePost`;
         fetch(endpoint, {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(updatedPost)
         })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
-                alert('Post has been updated');
-                window.location.href = '/Login'
-                return response.json();
-                
-            })
-            .then(data => {
-                console.log('Success:', data);
-                alert('Post has been deleted');
-                window.location.reload(); 
+                alert('Post has been updated successfully.');
+                document.getElementById('updateForm').reset();
+                document.getElementById('updateForm').style.display = 'none';
+                window.location.href = '/Login';
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
+                alert('Error updating post: ' + error.message);
             });
-    }
-
-    document.getElementById('updateForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const endpoint = 'https://localhost:7075/Posts/UpdatePost';
-        const formData = new FormData(this);
-        updatePost(endpoint, formData);
     });
+
+    // function updatePost(endpoint, formData) {
+    //     const userName = document.getElementById('userName').value;
+    //     const plainFormData = userName + Object.fromEntries(formData.entries());
+    //     const jsonString = JSON.stringify(plainFormData);
+    //     var submitButton = document.getElementById('update-button');
+    //     submitButton.innerText = 'Post is being updated';
+    //     submitButton.style.background = '#3CD5EF';
+
+       
+    //     fetch(endpoint, {
+    //         method: 'PATCH',
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //         .then(response => {
+    //             if (!response.ok) {
+    //                 throw new Error('Network response was not ok ' + response.statusText);
+    //             }
+    //             alert('Post has been updated');
+    //             window.location.href = '/Login'
+    //             return response.json();
+                
+    //         })
+    //         .then(data => {
+    //             console.log('Success:', data);
+    //             alert('Post has been deleted');
+    //             window.location.reload(); 
+    //         })
+    //         .catch(error => {
+    //             console.error('There was a problem with the fetch operation:', error);
+    //         });
+    // }
+
+    // document.getElementById('updateForm').addEventListener('submit', function (event) {
+    //     event.preventDefault();
+    //     const endpoint = 'https://localhost:7075/Posts/UpdatePost';
+    //     const formData = new FormData(this);
+    //     updatePost(endpoint, formData);
+    // });
 
     
 </script>
