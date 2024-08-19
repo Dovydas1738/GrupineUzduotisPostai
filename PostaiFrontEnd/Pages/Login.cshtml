@@ -102,9 +102,10 @@
             const postContent = document.createElement('p');
             postContent.textContent = post.content;
 
-            const postCategory = document.createElement('c');
+            const postCategory = document.createElement('p');
             postCategory.textContent = `Category: ${post.category}`;
 
+            
             const postDate = document.createElement('p');
             postDate.textContent = `Posted by ${post.user.userName} on ${new Date(post.date).toLocaleDateString()}`;
 
