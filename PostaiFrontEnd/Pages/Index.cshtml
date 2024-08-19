@@ -1,6 +1,7 @@
 ﻿@page
 @using GrupineUzduotisPostai.Core.Models
 @using GrupineUzduotisPostai.Core.Services
+@using GrupineUzduotisPostai.Core.Enums
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -137,10 +138,19 @@
 <div id="postDetails" style="display: none; padding: 15px; border: 1px solid #ddd;">
     <h4 id="postTitle"></h4>
     <p id="postContent" class="my-post-limit"></p>
+    <p id="postCategory"></p>
     <p id="postDate"></p>
 </div>
 
 <script>
+
+    const PostCategories = {
+        1: 'OffTopic',
+        2: 'Complaint',
+        3: 'Advert',
+        4: 'News'
+    };
+
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.post-title').forEach(function (element) {
             element.addEventListener('click', function (e) {
@@ -151,13 +161,16 @@
         });
     });
 
+   
     function fetchPostDetails(postName) {
         fetch(`https://localhost:7075/Posts/GetPostByName?postName=${encodeURIComponent(postName)}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('postTitle').textContent = data.name;
                 document.getElementById('postContent').textContent = data.content;
-                document.getElementById('postCategory').textContent = data.category;
+
+                document.getElementById('postCategory').textContent = `Category: ${PostCategories[data.category]}`;
+
                 document.getElementById('postDate').textContent = `Posted by ${data.userName} on ${new Date(data.date).toLocaleDateString()}`;
                 document.getElementById('postDetails').style.display = 'block';
             })
