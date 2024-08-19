@@ -77,8 +77,11 @@ namespace PostaiAPI.Controllers
         {
             try
             {
-                await _postService.UpdatePost(post);
-                return Ok(post);
+                Post post1 = new Post { Id = post.Id, User = await _userService.GetUserByUserName(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date };
+                post1.SetDate();
+
+                await _postService.UpdatePost(post1);
+                return Ok(post1);
 
             }
             catch
