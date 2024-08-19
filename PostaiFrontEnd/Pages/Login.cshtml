@@ -25,6 +25,18 @@
 
 <div id="postContainer" style="margin-top: 20px" class="my-post-limit"></div>
 
+<form id="updateForm" class="text-center">
+
+    <label for="name">New name for your post:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="content">New content for your post:</label><br>
+    <input type="text" id="content" name="content" required><br><br>
+
+    <button type="submit" id="update-button">Update</button>
+</form>
+
+
 
 <script>
     document.getElementById('loginForm').addEventListener('submit', function (event) {
@@ -89,10 +101,24 @@
                 deleteButton.style.background = '#3CD5EF';
             });
 
+            const updateButton = document.createElement('button');
+            updateButton.textContent = 'Update';
+            updateButton.style.marginTop = '10px';
+            updateButton.style.margin = '10px';
+            updateButton.addEventListener('click', function () {
+                //pakeist i formos data
+                updateButton(post.id);
+                updateButton.innerText = 'Post is being deleted';
+                updateButton.style.background = '#3CD5EF';
+            });
+
+
+
             postElement.appendChild(postTitle);
             postElement.appendChild(postContent);
             postElement.appendChild(postDate);
             postElement.appendChild(deleteButton);
+            postElement.appendChild(updateButton);
             postContainer.appendChild(postElement);
         });
     }
@@ -125,5 +151,36 @@
                 console.error('There was a problem with the fetch operation:', error);
             });
     }
+
+    function updatePost(postId) {
+        const endpoint = `https://localhost:7075/Posts/UpdatePost/${postId}`;
+
+
+        fetch(endpoint, {
+            method: 'PATCH',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                alert('Post has been deleted');
+                window.location.href = '/Login'
+                return response.json();
+                
+            })
+            .then(data => {
+                console.log('Success:', data);
+                alert('Post has been deleted');
+                window.location.reload(); 
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
     
 </script>
