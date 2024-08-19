@@ -25,7 +25,7 @@
 
 <div id="postContainer" style="margin-top: 20px" class="my-post-limit"></div>
 
-<form id="updateForm" class="text-center">
+<form id="updateForm" class="update-form">
 
     <label for="name">New name for your post:</label><br>
     <input type="text" id="name" name="name" required><br><br>
@@ -106,10 +106,11 @@
             updateButton.style.marginTop = '10px';
             updateButton.style.margin = '10px';
             updateButton.addEventListener('click', function () {
+                document.getElementById('updateForm').style.display = 'block';
                 //pakeist i formos data
-                updateButton(post.id);
-                updateButton.innerText = 'Post is being deleted';
-                updateButton.style.background = '#3CD5EF';
+                //updateButton(post.id);
+                //updateButton.innerText = 'Post is being deleted';
+                //updateButton.style.background = '#3CD5EF';
             });
 
 
@@ -152,10 +153,15 @@
             });
     }
 
-    function updatePost(postId) {
-        const endpoint = `https://localhost:7075/Posts/UpdatePost/${postId}`;
+    function updatePost(endpoint, formData) {
+        const userName = document.getElementById('userName').value;
+        const plainFormData = userName + Object.fromEntries(formData.entries());
+        const jsonString = JSON.stringify(plainFormData);
+        var submitButton = document.getElementById('update-button');
+        submitButton.innerText = 'Post is being updated';
+        submitButton.style.background = '#3CD5EF';
 
-
+        //hell yeah
         fetch(endpoint, {
             method: 'PATCH',
             headers: {
@@ -167,7 +173,7 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
                 }
-                alert('Post has been deleted');
+                alert('Post has been updated');
                 window.location.href = '/Login'
                 return response.json();
                 
@@ -181,6 +187,13 @@
                 console.error('There was a problem with the fetch operation:', error);
             });
     }
+
+    document.getElementById('updateForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const endpoint = 'https://localhost:7075/Posts/UpdatePost';
+        const formData = new FormData(this);
+        updatePost(endpoint, formData);
+    });
 
     
 </script>
