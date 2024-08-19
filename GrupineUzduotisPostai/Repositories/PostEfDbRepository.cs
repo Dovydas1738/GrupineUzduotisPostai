@@ -59,7 +59,7 @@ namespace GrupineUzduotisPostai.Core.Repositories
                     if(p.Name == postName)
                     {
                         context.Entry(p).Reference(x => x.User).Load();
-                        Console.WriteLine($"{p.User.UserId} {p.User.UserName} {p.Name} {p.Content} {p.Date}");
+                        Console.WriteLine($"{p.User.UserId} {p.User.UserName} {p.Name} {p.Content} {p.Category} {p.Date}");
                         return p;
                     }
                 }
@@ -91,7 +91,7 @@ namespace GrupineUzduotisPostai.Core.Repositories
                     context.Entry(post).Reference(x => x.User).Load();
                     if (post.User.UserName == userName)
                     {
-                        Console.WriteLine($"{post.User.UserId} {post.User.UserName} {post.Name} {post.Content} {post.Date}");
+                        Console.WriteLine($"{post.User.UserId} {post.User.UserName} {post.Name} {post.Content} {post.Category} {post.Date}");
 
                         foundPosts.Add(post);
                     }
