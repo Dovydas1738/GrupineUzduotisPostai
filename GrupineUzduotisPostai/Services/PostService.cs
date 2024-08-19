@@ -47,5 +47,7 @@ namespace GrupineUzduotisPostai.Core.Services
         {
             await _postRepository.UpdatePost(post);
         }
+
+
     }
 }

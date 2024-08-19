@@ -77,6 +77,8 @@ namespace PostaiAPI.Controllers
         {
             try
             {
+                User foundUser = await _userService.GetUserByUserName(post.UserName);
+
                 Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date };
                 post1.SetDate();
 

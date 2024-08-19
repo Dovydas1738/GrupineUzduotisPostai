@@ -59,14 +59,26 @@
     <label for="content">Enter content for your post:</label><br>
     <input type="text" id="content" name="content" required><br><br>
 
+    <label id="captchaLabel"></label><br>
+    <label for="answer">Enter answer:</label><br>
+    <input type="number" id="captchaInput" name="answer" required><br><br>
+
     <button type="submit" id="submit-button">Submit</button>
 </form>
+
+<div id="result" class="text-center"></div>
 
 
 <script>
     function sendFormDataAdd(endpoint, formData) {
+        if (checkCaptcha()==false) {
+            alert('Please solve the CAPTCHA correctly.');
+            return;
+        }
+
         const plainFormData = Object.fromEntries(formData.entries());
         const jsonString = JSON.stringify(plainFormData);
+        checkCaptcha();
         var submitButton = document.getElementById('submit-button');
         submitButton.innerText = 'Post is being created';
         submitButton.style.background = '#3CD5EF';
@@ -81,6 +93,9 @@
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
+                }
+                else if (checkCaptcha() == false){
+                    throw new Error('Captcha failed!');
                 }
                 alert('Post has been added');
                 window.location.href = '/Index'
@@ -185,4 +200,29 @@
         const formData = new FormData(this);
         sendFormDataDelete(endpoint, formData);
     });
+</script>
+
+<script>
+    
+    
+    const captcha1 = Math.floor(Math.random() * 21);
+    const captcha2 = Math.floor(Math.random() * 21);
+    const correctAnswer = captcha1 + captcha2;
+
+    document.getElementById('captchaLabel').innerText = `What is ${captcha1} + ${captcha2}?`;
+
+    function checkCaptcha() {
+        const userAnswer = parseInt(document.getElementById('captchaInput').value, 10);
+        const resultElement = document.getElementById('result');
+
+        if (userAnswer === correctAnswer) {
+            resultElement.innerText = 'Correct!';
+            resultElement.style.color = 'green';
+            return true;
+        } else {
+            resultElement.innerText = 'Incorrect, please try again.';
+            resultElement.style.color = 'red';
+            return false;
+        }
+    }
 </script>
