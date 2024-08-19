@@ -33,6 +33,14 @@
     <label for="content">New content for your post:</label><br>
     <input type="text" id="content" name="content" required><br><br>
 
+    <label for="category">Select a new category:</label><br>
+    <select id="category" name="category">
+        <option value="1">OffTopic</option>
+        <option value="2">Complaint</option>
+        <option value="3">Advert</option>
+        <option value="4">News</option>
+    </select><br><br>
+
     <button type="submit" id="update-button">Update</button>
 </form>
 
@@ -94,6 +102,9 @@
             const postContent = document.createElement('p');
             postContent.textContent = post.content;
 
+            const postCategory = document.createElement('c');
+            postCategory.textContent = `Category: ${post.category}`;
+
             const postDate = document.createElement('p');
             postDate.textContent = `Posted by ${post.user.userName} on ${new Date(post.date).toLocaleDateString()}`;
 
@@ -115,20 +126,21 @@
                 currentPostId = post.id;
                 currentUserId = post.user.userId;
                 currentUserName = post.user.userName;
+                currentCategory = parseInt(post.category);
+
                 currentDate = post.date;
                 document.getElementById('name').value = post.name;
                 document.getElementById('content').value = post.content;
+                document.getElementById('category').value = post.category;
                 document.getElementById('updateForm').style.display = 'block';
-                //pakeist i formos data
-                //updateButton(post.id);
-                //updateButton.innerText = 'Post is being deleted';
-                //updateButton.style.background = '#3CD5EF';
+
             });
 
 
 
             postElement.appendChild(postTitle);
             postElement.appendChild(postContent);
+            postElement.appendChild(postCategory);
             postElement.appendChild(postDate);
             postElement.appendChild(deleteButton);
             postElement.appendChild(updateButton);
@@ -168,6 +180,7 @@
    
     document.getElementById('updateForm').addEventListener('submit', function (event) {
         event.preventDefault();
+        
         if (currentPostId === null) {
             alert('No post selected for update.');
             return;
@@ -179,12 +192,14 @@
             userName: currentUserName,
             name: document.getElementById('name').value,
             content: document.getElementById('content').value,
+            category: parseInt(document.getElementById('category').value),
             date: currentDate
 
 
         };
 
         const endpoint = `https://localhost:7075/Posts/UpdatePost`;
+        
         fetch(endpoint, {
             method: 'PATCH',
             headers: {
@@ -208,47 +223,6 @@
             });
     });
 
-    // function updatePost(endpoint, formData) {
-    //     const userName = document.getElementById('userName').value;
-    //     const plainFormData = userName + Object.fromEntries(formData.entries());
-    //     const jsonString = JSON.stringify(plainFormData);
-    //     var submitButton = document.getElementById('update-button');
-    //     submitButton.innerText = 'Post is being updated';
-    //     submitButton.style.background = '#3CD5EF';
-
-       
-    //     fetch(endpoint, {
-    //         method: 'PATCH',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //         .then(response => {
-    //             if (!response.ok) {
-    //                 throw new Error('Network response was not ok ' + response.statusText);
-    //             }
-    //             alert('Post has been updated');
-    //             window.location.href = '/Login'
-    //             return response.json();
-                
-    //         })
-    //         .then(data => {
-    //             console.log('Success:', data);
-    //             alert('Post has been deleted');
-    //             window.location.reload(); 
-    //         })
-    //         .catch(error => {
-    //             console.error('There was a problem with the fetch operation:', error);
-    //         });
-    // }
-
-    // document.getElementById('updateForm').addEventListener('submit', function (event) {
-    //     event.preventDefault();
-    //     const endpoint = 'https://localhost:7075/Posts/UpdatePost';
-    //     const formData = new FormData(this);
-    //     updatePost(endpoint, formData);
-    // });
-
+ 
     
 </script>
