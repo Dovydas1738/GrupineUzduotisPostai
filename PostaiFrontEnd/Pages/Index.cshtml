@@ -12,6 +12,39 @@
 </div>
 
 
+<h4 class="text-center">Create new POST:</h4>
+<br>
+<form id="postCreateForm" class="text-center">
+
+    <label for="userName">Enter Your Name:</label><br>
+    <input type="text" id="userName" name="userName" required><br><br>
+
+    <label for="name">Enter a name for your post:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="content">Enter content for your post:</label><br>
+    <input type="text" id="content" name="content" required><br><br>
+
+    <label id="captchaLabel"></label><br>
+    <label for="answer">Enter answer:</label><br>
+    <input type="number" id="captchaInput" name="answer" required><br><br>
+
+
+    <label for="category">Select a category:</label><br>
+    <select id="category" name="category">
+        <option value="1">OffTopic</option>
+        <option value="2">Complaint</option>
+        <option value="3">Advert</option>
+        <option value="4">News</option>
+    </select><br><br>
+
+
+    <button type="submit" id="submit-button">Submit</button>
+</form>
+
+<br>
+<br>
+
 
 <h4 class="text-center">Posts:</h4>
 <br>
@@ -48,35 +81,6 @@
 <br>
 <br>
 
-<h4 class="text-center">Create new POST:</h4>
-<br>
-<form id="postCreateForm" class="text-center">
-
-    <label for="userName">Enter Your Name:</label><br>
-    <input type="text" id="userName" name="userName" required><br><br>
-
-    <label for="name">Enter a name for your post:</label><br>
-    <input type="text" id="name" name="name" required><br><br>
-    
-    <label for="content">Enter content for your post:</label><br>
-    <input type="text" id="content" name="content" required><br><br>
-
-    <label id="captchaLabel"></label><br>
-    <label for="answer">Enter answer:</label><br>
-    <input type="number" id="captchaInput" name="answer" required><br><br>
-
-
-    <label for="category">Select a category:</label><br>
-    <select id="category" name="category">
-        <option value="1">OffTopic</option>
-        <option value="2">Complaint</option>
-        <option value="3">Advert</option>
-        <option value="4">News</option>
-    </select><br><br>
-
-
-    <button type="submit" id="submit-button">Submit</button>
-</form>
 
 <div id="result" class="text-center"></div>
 
