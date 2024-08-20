@@ -34,7 +34,7 @@ namespace GrupineUzduotisPostai.Core.Repositories
             using (var context = new PostDbContext())
             {
 
-                await context.Posts.AddAsync(post);
+                context.Posts.Update(post);
                 await context.SaveChangesAsync();
             }
         }

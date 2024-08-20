@@ -41,28 +41,28 @@ namespace PostaiAPI.Controllers
             try
             {
 
-                //List<Post> postCheck = await _postEfDbRepository.GetPostsByUserName(post.UserName);
-                //if (postCheck.Count > 0)
-                //{
-                //    User foundUser = await _userService.GetUserByUserName(post.UserName);
-                //    foundUser = foundUser;
-                //    Post post1 = new Post { Id = post.Id, User = foundUser, Name = post.Name, Content = post.Content, Date = post.Date };
-                //    post1.SetDate();
-                //    await _postService.AddPost(post1);
-                //    return Ok();
-                //}
-                //else
-                //{
-                //    Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date };
-                //    post1.SetDate();
-                //    await _postService.AddPost(post1);
-                //    return Ok();
-                //}
+                List<Post> postCheck = await _postEfDbRepository.GetPostsByUserName(post.UserName);
+                if (postCheck.Count > 0)
+                {
+                    User foundUser = await _userService.GetUserByUserName(post.UserName);
+                    foundUser = foundUser;
+                    Post post1 = new Post { Id = post.Id, User = foundUser, Name = post.Name, Content = post.Content, Date = post.Date };
+                    post1.SetDate();
+                    await _postService.AddPost(post1);
+                    return Ok();
+                }
+                else
+                {
+                    Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date };
+                    post1.SetDate();
+                    await _postService.AddPost(post1);
+                    return Ok();
+                }
 
-                Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date, Category = post.Category };
-                post1.SetDate();
-                await _postService.AddPost(post1);
-                return Ok();
+                //Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date, Category = post.Category };
+                //post1.SetDate();
+                //await _postService.AddPost(post1);
+                //return Ok();
 
 
 
