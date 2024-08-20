@@ -20,7 +20,8 @@
 <form id="loginForm" class="text-center">
     <label for="userName">Enter Your User Name:</label><br>
     <input type="text" id="userName" name="userName" required><br><br>
-    <button type="submit" id="submit-button">Login</button>
+
+    <button type="submit" id="submit-button" class="button-49" role="button">Login</button>
 </form>
 
 <div id="postContainer" style="margin-top: 20px" class="my-post-limit"></div>
@@ -41,7 +42,7 @@
         <option value="4">News</option>
     </select><br><br>
 
-    <button type="submit" id="update-button">Update</button>
+    <button type="submit" id="update-button" class="button-49" role="button">Update</button>
 </form>
 
 
@@ -115,7 +116,10 @@
 
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete';
-            deleteButton.style.marginTop = '10px';
+            deleteButton.classList.add('button-24');
+            deleteButton.style.width = '80px';
+            deleteButton.style.height = '40px';
+            deleteButton.style.fontSize = '10px';
             deleteButton.addEventListener('click', function () {
                 deletePost(post.id);
                 deleteButton.innerText = 'Post is being deleted';
@@ -124,8 +128,11 @@
 
             const updateButton = document.createElement('button');
             updateButton.textContent = 'Update';
-            updateButton.style.marginTop = '10px';
+            updateButton.classList.add('button-24');
+            updateButton.style.width = '80px';
+            updateButton.style.height = '40px';
             updateButton.style.margin = '10px';
+            updateButton.style.fontSize = '10px';
             updateButton.addEventListener('click', function () {
                 document.getElementById('updateForm').style.display = 'block';
                 currentPostId = post.id;
@@ -234,3 +241,5 @@
  
     
 </script>
+
+

@@ -40,7 +40,7 @@
     </select><br><br>
 
 
-    <button type="submit" id="submit-button">Submit</button>
+    <button type="submit" id="submit-button" class="button-49" role="button">Submit</button>
 </form>
 
 <br>
@@ -105,7 +105,7 @@
         const jsonString = JSON.stringify(plainFormData);
         checkCaptcha();
         var submitButton = document.getElementById('submit-button');
-        submitButton.innerText = 'Post is being created';
+        submitButton.innerText = 'Creating...';
         submitButton.style.background = '#3CD5EF';
         fetch(endpoint, {
             method: 'POST',
@@ -229,7 +229,7 @@
     <label for="postId">Enter Post ID:</label><br>
     <input type="number" id="deleteId" name="postId" required><br><br>
 
-    <button type="submit" id="submit-button-delete">Submit</button>
+    <button type="submit" id="submit-button-delete" class="button-49" role="button">Submit</button>
 </form>
 
 
@@ -238,7 +238,7 @@
         const plainFormData = Object.fromEntries(formData.entries());
         const jsonString = JSON.stringify(plainFormData);
         var submitButton = document.getElementById('submit-button-delete');
-        submitButton.innerText = 'Post is being deleted';
+        submitButton.innerText = 'Deleting...';
         submitButton.style.background = '#3CD5EF';
         endpoint += '/' + document.getElementById('deleteId').value;
         fetch(endpoint, {
