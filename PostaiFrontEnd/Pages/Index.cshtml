@@ -61,6 +61,7 @@
         <th>Content</th>
         <th>Date</th>
         <th>Post Category</th>
+        <th>Views</th>
     </tr>
     @foreach (Post po in Model.Posts)
     {
@@ -74,6 +75,7 @@
             <td class="my-content-limit">@po.Content</td>
             <td>@po.Date </td>
             <th>@po.Category</th>
+            <th>@po.Views</th>
         </tr>
     }
 </table>
@@ -143,6 +145,7 @@
     <p id="postContent" class="my-post-limit"></p>
     <p id="postCategory"></p>
     <p id="postDate"></p>
+    <p id="postViews"></p>
 </div>
 
 <script>
@@ -160,6 +163,7 @@
                 e.preventDefault();
                 var postName = this.getAttribute('data-name');
                 fetchPostDetails(postName);
+                //
             });
         });
     });
@@ -175,10 +179,40 @@
                 document.getElementById('postCategory').textContent = `Category: ${PostCategories[data.category]}`;
 
                 document.getElementById('postDate').textContent = `Posted by ${data.userName} on ${new Date(data.date).toLocaleDateString()}`;
+                data.views += 1;
+
+                document.getElementById('postViews').textContent = `Views: ${data.views}`;
                 document.getElementById('postDetails').style.display = 'block';
+
+                updatePostViewCount(data);
+
             })
             .catch(error => console.error('Error fetching post details:', error));
     }
+
+    function updatePostViewCount(post) {
+        fetch('https://localhost:7075/Posts/UpdatePost', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: post.id,
+                userName: post.userName,
+                name: post.name,
+                content: post.content,
+                date: post.date,
+                category: post.category,
+                views: post.views
+            })
+        })
+            .then(response => response.json())
+            .then(updatedPost => {
+                console.log('Post view count updated successfully:', updatedPost);
+            })
+            .catch(error => console.error('Error updating post view count:', error));
+    }
+
 </script>
 
 

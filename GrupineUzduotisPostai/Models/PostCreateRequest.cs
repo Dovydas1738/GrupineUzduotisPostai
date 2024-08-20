@@ -20,5 +20,6 @@ namespace GrupineUzduotisPostai.Core.Models
         public DateTime Date { get; set; }
 
         public PostCategories Category { get; set; }
+        public int Views { get; set; }
     }
 }

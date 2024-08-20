@@ -81,6 +81,7 @@
     let currentUserId = null;
     let currentUserName = null;
     let currentDate = null;
+    let currentViews = null;
 
     function displayPosts(posts) {
         const postContainer = document.getElementById('postContainer');
@@ -109,6 +110,9 @@
             const postDate = document.createElement('p');
             postDate.textContent = `Posted by ${post.user.userName} on ${new Date(post.date).toLocaleDateString()}`;
 
+            const postViews = document.createElement('p');
+            postViews.textContent = `Views: ${post.views}`;
+
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete';
             deleteButton.style.marginTop = '10px';
@@ -128,6 +132,7 @@
                 currentUserId = post.user.userId;
                 currentUserName = post.user.userName;
                 currentCategory = parseInt(post.category);
+                currentViews = post.views;
 
                 currentDate = post.date;
                 document.getElementById('name').value = post.name;
@@ -143,6 +148,7 @@
             postElement.appendChild(postContent);
             postElement.appendChild(postCategory);
             postElement.appendChild(postDate);
+            postElement.appendChild(postViews);
             postElement.appendChild(deleteButton);
             postElement.appendChild(updateButton);
             postContainer.appendChild(postElement);
@@ -194,7 +200,8 @@
             name: document.getElementById('name').value,
             content: document.getElementById('content').value,
             category: parseInt(document.getElementById('category').value),
-            date: currentDate
+            date: currentDate,
+            views: currentViews
 
 
         };

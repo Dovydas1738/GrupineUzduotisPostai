@@ -20,8 +20,8 @@ namespace GrupineUzduotisPostai.Core.Models
         public string Name { get; set; }
         public string Content { get; set; }
         public DateTime Date {  get; set; }
-
         public PostCategories Category { get; set; }
+        public int Views { get; set; }
 
         public void SetDate()
         {
@@ -34,6 +34,7 @@ namespace GrupineUzduotisPostai.Core.Models
             Content = content;
             Date = DateTime.Now;
             Category = category;
+            Views = 0;
         
         }
 

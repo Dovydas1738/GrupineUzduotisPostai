@@ -83,7 +83,7 @@ namespace PostaiAPI.Controllers
 
                 User foundUser = await _userService.GetUserByUserName(post.UserName);
 
-                Post post1 = new Post { Id = post.Id, User = foundUser, Name = post.Name, Content = post.Content, Date = post.Date, Category = post.Category };
+                Post post1 = new Post { Id = post.Id, User = foundUser, Name = post.Name, Content = post.Content, Date = post.Date, Category = post.Category, Views = post.Views };
                 post1.SetDate();
 
                 await _postService.UpdatePost(post1);
@@ -115,7 +115,8 @@ namespace PostaiAPI.Controllers
                     content = foundPost.Content,
                     userName = foundPost.User.UserName,
                     date = foundPost.Date,
-                    category = foundPost.Category
+                    category = foundPost.Category,
+                    views = foundPost.Views
                 });
             }
             catch
