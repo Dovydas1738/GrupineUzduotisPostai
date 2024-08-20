@@ -25,7 +25,6 @@ body {
 
 .table-container {
     max-height: 800px; 
-    max-height: 300px;
     overflow-y: auto;
     border: hidden;
     border-color: black;
@@ -36,7 +35,7 @@ body {
 
 .my-table {
     width: 100%;
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
 
 }
 
@@ -50,9 +49,8 @@ body {
 .my-table-row {
     border: 1px solid white;
     color: white;
-    row-gap: 100px;
     text-align: center;
-    height: 200px;
+    height: 80px;
 }
 
 .my-table-column {
@@ -88,10 +86,10 @@ body {
 }
 
 .display-4{
-    font-family: Coolvetica;
+    font-family: Digitalt;
     font-size: 100px;
-    color: yellow;
-    -webkit-text-stroke: 2px black;
+    color: red;
+    /*-webkit-text-stroke: 2px black;*/
     margin-bottom: 100px;
     margin-top: 50px;
 }
@@ -254,3 +252,18 @@ body {
     opacity: .5;
 }
 
+.brutalist-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    background-color: #fff;
+    border: 4px solid #000;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 5px 5px 0 #000, 10px 10px 0 #4a90e2;
+}
