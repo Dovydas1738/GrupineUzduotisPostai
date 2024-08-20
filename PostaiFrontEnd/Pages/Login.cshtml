@@ -24,7 +24,11 @@
     <button type="submit" id="submit-button" class="button-49" role="button">Login</button>
 </form>
 
-<div id="postContainer" style="margin-top: 20px" class="my-post-limit"></div>
+<br>
+<br>
+<br>
+
+<div id="postContainer" style="margin-top: 20px" class="my-posts"></div>
 
 <form id="updateForm" class="update-form">
 
@@ -134,6 +138,7 @@
             updateButton.style.margin = '10px';
             updateButton.style.fontSize = '10px';
             updateButton.addEventListener('click', function () {
+
                 document.getElementById('updateForm').style.display = 'block';
                 currentPostId = post.id;
                 currentUserId = post.user.userId;
