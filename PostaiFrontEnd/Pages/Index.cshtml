@@ -34,7 +34,7 @@
 
 
     <label for="category">Select a category:</label><br>
-    <select id="category" name="category">
+    <select id="category" class="brutalist-input" name="category">
         <option value="1">OffTopic</option>
         <option value="2">Complaint</option>
         <option value="3">Advert</option>
@@ -90,7 +90,7 @@
 <br>
 
 
-<div id="result" class="text-center"></div>
+<div id="result" class="text-center" ></div>
 
 
 <script>
@@ -146,13 +146,16 @@
 <br>
 
 
-<div id="postDetails" style="display: none; padding: 15px; border: 1px solid #ddd;">
+<div id="postDetails" class="my-posts" style="display: none; padding: 15px; border: 1px solid;">
     <h4 id="postTitle"></h4>
-    <p id="postContent" class="my-post-limit"></p>
+    <p id="postContent"></p>
     <p id="postCategory"></p>
     <p id="postDate"></p>
     <p id="postViews"></p>
 </div>
+
+<br>
+<br>
 
 <script>
 
@@ -229,7 +232,7 @@
 <form id="postDeleteForm" class="text-center">
 
     <label for="postId">Enter Post ID:</label><br>
-    <input type="number" id="deleteId" name="postId" required><br><br>
+    <input type="number" class="brutalist-input" id="deleteId" name="postId" required><br><br>
 
     <button type="submit" id="submit-button-delete" class="button-49" role="button">Submit</button>
 </form>
