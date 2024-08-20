@@ -92,8 +92,16 @@
     let currentDate = null;
     let currentViews = null;
 
+
+
     function displayPosts(posts) {
         const postContainer = document.getElementById('postContainer');
+        const PostCategories = {
+            1: 'OffTopic',
+            2: 'Complaint',
+            3: 'Advert',
+            4: 'News'
+        };
         postContainer.innerHTML = '';
         if (posts.length === 0) {
             postContainer.innerHTML = '<p>No posts found for the specified user.</p>';
@@ -113,7 +121,7 @@
             postContent.textContent = post.content;
 
             const postCategory = document.createElement('p');
-            postCategory.textContent = `Category: ${post.category}`;
+            postCategory.textContent = `Category: ${PostCategories[post.category]}`;
 
             
             const postDate = document.createElement('p');
