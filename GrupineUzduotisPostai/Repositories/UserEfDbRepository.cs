@@ -42,7 +42,7 @@ namespace GrupineUzduotisPostai.Core.Repositories
         {
             using (var context = new PostDbContext())
             {
-                User foundUser = await context.Users.FindAsync(userName);
+                User foundUser = context.Users.Where(x => x.UserName == userName).First();
                 return foundUser;
             }
 

@@ -45,15 +45,15 @@ namespace PostaiAPI.Controllers
                 if (postCheck.Count > 0)
                 {
                     User foundUser = await _userService.GetUserByUserName(post.UserName);
-                    foundUser = foundUser;
-                    Post post1 = new Post { Id = post.Id, User = foundUser, Name = post.Name, Content = post.Content, Date = post.Date };
+                    //foundUser = foundUser;
+                    Post post1 = new Post { Id = post.Id, User = foundUser, Name = post.Name, Content = post.Content, Date = post.Date, Category = post.Category };
                     post1.SetDate();
                     await _postService.AddPost(post1);
                     return Ok();
                 }
                 else
                 {
-                    Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date };
+                    Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date, Category = post.Category };
                     post1.SetDate();
                     await _postService.AddPost(post1);
                     return Ok();
@@ -81,9 +81,9 @@ namespace PostaiAPI.Controllers
             try
             {
 
-                //User foundUser = await _userService.GetUserByUserName(post.UserName);
+                User foundUser = await _userService.GetUserByUserName(post.UserName);
 
-                Post post1 = new Post { Id = post.Id, User = new User(post.UserName), Name = post.Name, Content = post.Content, Date = post.Date, Category = post.Category };
+                Post post1 = new Post { Id = post.Id, User = foundUser, Name = post.Name, Content = post.Content, Date = post.Date, Category = post.Category };
                 post1.SetDate();
 
                 await _postService.UpdatePost(post1);
