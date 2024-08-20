@@ -79,12 +79,16 @@ body {
     overflow-y: auto;
     word-wrap: break-word;
     background-color: lightblue;
+    font-family: monospace;
 }
 
 
 
-.update-form{
+.update-form {
     display: none;
+    text-align: center;
+    color: white;
+    font-size: 25px;
 }
 
 .display-4{
