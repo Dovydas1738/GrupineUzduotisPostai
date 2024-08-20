@@ -51,6 +51,8 @@ body {
     color: white;
     text-align: center;
     height: 80px;
+    font-family: monospace;
+    font-size: 20px;
 }
 
 .my-table-column {
@@ -86,7 +88,7 @@ body {
 }
 
 .display-4{
-    font-family: Digitalt;
+    font-family: monospace;
     font-size: 100px;
     color: red;
     /*-webkit-text-stroke: 2px black;*/
@@ -253,7 +255,7 @@ body {
 }
 
 .brutalist-input {
-    width: 100%;
+    width: 50%;
     padding: 15px;
     font-size: 18px;
     font-weight: bold;
@@ -266,4 +268,14 @@ body {
     outline: none;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 5px 5px 0 #000, 10px 10px 0 #4a90e2;
+}
+
+.post-title{
+    color:red;
+    font-weight: bold;
+}
+
+.createnewpost{
+    font-family:monospace;
+    color:red;
 }
