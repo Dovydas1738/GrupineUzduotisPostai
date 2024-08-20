@@ -134,6 +134,7 @@
             updateButton.style.margin = '10px';
             updateButton.style.fontSize = '10px';
             updateButton.addEventListener('click', function () {
+
                 document.getElementById('updateForm').style.display = 'block';
                 currentPostId = post.id;
                 currentUserId = post.user.userId;
@@ -147,6 +148,7 @@
                 document.getElementById('category').value = post.category;
                 document.getElementById('updateForm').style.display = 'block';
 
+                document.getElementById('updateForm').scrollIntoView({ behavior: 'smooth' });
             });
 
 

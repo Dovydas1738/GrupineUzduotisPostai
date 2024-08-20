@@ -190,6 +190,7 @@
                 document.getElementById('postDetails').style.display = 'block';
 
                 updatePostViewCount(data);
+                document.getElementById('postDetails').scrollIntoView({ behavior: 'smooth' });
 
             })
             .catch(error => console.error('Error fetching post details:', error));

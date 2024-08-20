@@ -24,7 +24,7 @@ body {
 }
 
 .table-container {
-    max-height: 250px; 
+    max-height: 800px; 
     overflow-y: auto;
     border: hidden;
     border-color: black;
@@ -49,6 +49,7 @@ body {
     border: 1px solid white;
     color: white;
     text-align: center;
+    height: 200px;
 }
 
 .my-table-column {
