@@ -52,7 +52,7 @@ body {
     color: white;
     row-gap: 100px;
     text-align: center;
-    height: 200px;
+    height: 100px;
 }
 
 .my-table-column {
@@ -79,12 +79,16 @@ body {
     overflow-y: auto;
     word-wrap: break-word;
     background-color: lightblue;
+
 }
 
 
 
-.update-form{
+.update-form {
     display: none;
+    text-align: center;
+    color: white;
+    font-size: 25px;
 }
 
 .display-4{
